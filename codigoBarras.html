@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Código de Barras</title>
+    <script src="codigoBarras.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/barcodes/JsBarcode.itf.min.js"></script>
+</head>
+<body>
+    <h1>Código de Barras</h1>
+    <input type="text" id="input1" placeholder="cuit">
+    <input type="text" id="input2" placeholder="cai">
+    <input type="text" id="input3" placeholder="fecha de venc DDMMAAAA">
+    <input type="text" id="input4" placeholder="punto de venta 4 NUMEROS">
+    <select id="input5">
+    </select>
+    <button onclick="generarCodigo()">Generar</button>
+    <button onclick="limpiarInputs()">Limpiar</button>
+    <button onclick="descargarCodigo()">Descargar</button>
+    <button onclick="copiarCodigo()">Copiar Código</button>
+    <img id="barcode">
+    <p id="codigo" hidden></p>
+</body>
+</html>

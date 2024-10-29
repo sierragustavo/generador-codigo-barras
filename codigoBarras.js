@@ -1,28 +1,55 @@
 function generarCodigo() {
-  let cuit = document.getElementById("input1").value;
-  let cai = document.getElementById("input2").value;
-  let fechaVencimiento = document.getElementById("input3").value;
-  let puntoVenta = document.getElementById("input4").value;
-  let tipoComprobante = document.getElementById("input5").value;
-
-  let dia = fechaVencimiento.substring(0, 2);
-  let mes = fechaVencimiento.substring(2, 4);
-  let anio = fechaVencimiento.substring(4, 8);
-  fechaVencimiento = anio + mes + dia;
-
-  let codigo = cuit + tipoComprobante + puntoVenta + cai + fechaVencimiento;
-  let codigoVerificador = obtenerCodigoVerificador(codigo);
-  let codigoFinal = codigo + codigoVerificador;
-
-  JsBarcode("#barcode", codigoFinal, {
-    format: "ITF",
-    width: 2,
-    height: 50,
-    displayValue: true,
-  });
-  let codigoP = document.getElementById("codigo");
-  codigoP.value = codigoFinal;
+  if (verificarInputs()){
+    let cuit = document.getElementById("input1").value;
+    let cai = document.getElementById("input2").value;
+    let fechaVencimiento = document.getElementById("input3").value;
+    let puntoVenta = document.getElementById("input4").value;
+    let tipoComprobante = document.getElementById("input5").value;
+  
+    let dia = fechaVencimiento.substring(0, 2);
+    let mes = fechaVencimiento.substring(2, 4);
+    let anio = fechaVencimiento.substring(4, 8);
+    fechaVencimiento = anio + mes + dia;
+  
+    let codigo = cuit + tipoComprobante + puntoVenta + cai + fechaVencimiento;
+    let codigoVerificador = obtenerCodigoVerificador(codigo);
+    let codigoFinal = codigo + codigoVerificador;
+  
+    JsBarcode("#barcode", codigoFinal, {
+      format: "ITF",
+      width: 2,
+      height: 50,
+      displayValue: true,
+    });
+    let codigoP = document.getElementById("codigo");
+    codigoP.value = codigoFinal;
+  }
 }
+
+function verificarInputs() {
+  let cuit = document.getElementById("input1").value;
+  if (!/^\d{11}$/.test(cuit)) {
+    alert("El CUIT ingresado no es válido");
+    return false;
+  }
+  let cai = document.getElementById("input2").value;
+  if (!/^\d{14}$/.test(cai)) {
+    alert("El CAI ingresado no es válido");
+    return false;
+  }
+  let fechaVencimiento = document.getElementById("input3").value;
+  if (!/^\d{8}$/.test(fechaVencimiento)) {
+    alert("La fecha de vencimiento ingresada no es válida");
+    return false;
+  }
+  let puntoVenta = document.getElementById("input4").value;
+  if (!/^\d{4}$/.test(puntoVenta)) {
+    alert("El punto de venta ingresado no es válido");
+    return false;
+  }
+  return true;
+  }
+
 
 function obtenerCodigoVerificador(codigo) {
   let sumaImpares = 0;
